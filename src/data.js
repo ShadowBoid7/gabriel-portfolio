@@ -13,6 +13,7 @@ export const projects = [
     platform: "PC",
     tech: ["Unity", "C#", "Git"],
     short: "Jogo desenvolvido em Unity.",
+    thumb: "/media/flypidgeyfly.jpg",
     whatIs:
       "FlyPidgeyFly é um projeto em Unity onde o objetivo é ... (coloca aqui 1-2 frases).",
     workedOn: [
@@ -38,6 +39,7 @@ export const projects = [
     platform: "PC",
     tech: ["Unity", "C#", "Git"],
     short: "Puzzle game em Unity.",
+    thumb: "/media/flypidgeyfly.jpg",
     whatIs:
       "PuzzleBlock é um jogo de puzzles onde ... (coloca aqui 1-2 frases).",
     workedOn: [
@@ -59,6 +61,7 @@ export const projects = [
     platform: "PC",
     tech: ["Unity", "C#", "Git"],
     short: "Projeto interativo em Unity.",
+    thumb: "/media/flypidgeyfly.jpg",
     whatIs:
       "DescobertasInterativas é um projeto interativo onde ... (coloca aqui 1-2 frases).",
     workedOn: [

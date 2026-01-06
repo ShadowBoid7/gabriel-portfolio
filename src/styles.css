@@ -424,3 +424,56 @@ a{
   justify-content: flex-end;
 }
 
+/* Thumbnails on cards */
+.card{
+  overflow: hidden;
+  padding: 0;              /* tiramos padding do container */
+}
+
+.cardBody{
+  padding: 18px;           /* e metemos padding só no corpo */
+}
+
+.thumb{
+  height: 170px;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  position: relative;
+}
+
+.thumbImg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.02);
+  transition: transform 220ms ease, filter 220ms ease;
+  filter: saturate(1.05) contrast(1.02);
+}
+
+.thumb:hover .thumbImg{
+  transform: scale(1.06);
+  filter: saturate(1.12) contrast(1.05);
+}
+
+.thumbPlaceholder{
+  height: 100%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 16px;
+}
+
+.thumbPlaceholder__title{
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: 0.2px;
+}
+
+.thumbPlaceholder__sub{
+  margin-top: 6px;
+  font-size: 13px;
+  color: rgba(231,231,231,0.75);
+}
+

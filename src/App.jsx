@@ -245,42 +245,56 @@ export default function App() {
             <div className="cards">
               {projects.map((p) => (
                 <div className="card" key={p.id}>
-                  <div className="cardTop">
-                    <div>
-                      <h3>{p.title}</h3>
-                      <p>{p.short}</p>
-                    </div>
-                    <div className="cardMeta">
-                      <div className="mini">{p.platform}</div>
-                      <div className="mini">{p.tech.join(" • ")}</div>
-                    </div>
-                  </div>
+  <div className="thumb" onClick={() => setOpenProjectId(p.id)} role="button" tabIndex={0}>
+    {p.thumb ? (
+      <img className="thumbImg" src={p.thumb} alt={`${p.title} thumbnail`} />
+    ) : (
+      <div className="thumbPlaceholder">
+        <div className="thumbPlaceholder__title">{p.title}</div>
+        <div className="thumbPlaceholder__sub">Add screenshot later</div>
+      </div>
+    )}
+  </div>
 
-                  <div className="cardActions">
-                    <button className="btn" onClick={() => setOpenProjectId(p.id)}>
-                      View project
-                    </button>
+  <div className="cardBody">
+    <div className="cardTop">
+      <div>
+        <h3>{p.title}</h3>
+        <p>{p.short}</p>
+      </div>
 
-                    {/* links rápidos, se existirem */}
-                    <div className="quickLinks">
-                      {p.links?.github ? (
-                        <a className="linkSmall" href={p.links.github} target="_blank" rel="noreferrer">
-                          GitHub
-                        </a>
-                      ) : null}
-                      {p.links?.itch ? (
-                        <a className="linkSmall" href={p.links.itch} target="_blank" rel="noreferrer">
-                          Itch
-                        </a>
-                      ) : null}
-                      {p.links?.video ? (
-                        <a className="linkSmall" href={p.links.video} target="_blank" rel="noreferrer">
-                          Video
-                        </a>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
+      <div className="cardMeta">
+        <div className="mini">{p.platform}</div>
+        <div className="mini">{p.tech.join(" • ")}</div>
+      </div>
+    </div>
+
+    <div className="cardActions">
+      <button className="btn" onClick={() => setOpenProjectId(p.id)}>
+        View project
+      </button>
+
+      <div className="quickLinks">
+        {p.links?.github ? (
+          <a className="linkSmall" href={p.links.github} target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+        ) : null}
+        {p.links?.itch ? (
+          <a className="linkSmall" href={p.links.itch} target="_blank" rel="noreferrer">
+            Itch
+          </a>
+        ) : null}
+        {p.links?.video ? (
+          <a className="linkSmall" href={p.links.video} target="_blank" rel="noreferrer">
+            Video
+          </a>
+        ) : null}
+      </div>
+    </div>
+  </div>
+</div>
+
               ))}
             </div>
           </div>
