@@ -1,7 +1,8 @@
 export const profile = {
   name: "Gabriel Pereira",
-  title: "Trabalhador-Estudante",
-  tagline: "Game developer em Unity (C#).",
+  title: "Trabalhador-Estudante | Game Developer",
+  tagline:
+    "Sou um game developer focado em Unity e C#, com interesse em gameplay, sistemas e experiências interativas. Gosto de aprender através de projetos práticos e melhorar continuamente o meu código e design.",
   github: "https://github.com/ShadowBoid7",
   email: "gabriel123steam@hotmail.com",
 };
@@ -15,13 +16,18 @@ export const projects = [
     short: "Jogo desenvolvido em Unity.",
     thumb: "media/flypidgeyfly.jpg",
     whatIs:
-      "FlyPidgeyFly é um projeto em Unity onde o objetivo é ... (coloca aqui 1-2 frases).",
-    workedOn: [
-      "Gameplay core (movimento / pontuação / lógica principal)",
-      "UI / HUD",
-      "Polish e bug fixing",
-    ],
-    links: { github: "", itch: "", video: "" },
+    "FlyPidgeyFly é um jogo arcade onde o jogador controla uma personagem em voo, desviando-se de obstáculos e tentando alcançar a maior pontuação possível.",
+
+  workedOn: [
+    "Implementação do sistema de movimento e colisões",
+    "Sistema de pontuação e progressão",
+    "UI / HUD do jogo",
+    "Correção de bugs e melhorias de jogabilidade",
+  ],
+
+  links: {
+    github: "https://github.com/ShadowBoid7/FlyPidgeyFly",
+  },
     media: [
       { type: "video", src: "media/videos/flypidgeyfly.mp4" },
     ],
@@ -35,13 +41,18 @@ export const projects = [
     short: "Puzzle game em Unity.",
     thumb: "media/puzzleblock.jpg",
     whatIs:
-      "PuzzleBlock é um jogo de puzzles onde ... (coloca aqui 1-2 frases).",
-    workedOn: [
-      "Sistema de puzzles / regras",
-      "Interações e feedback ao jogador",
-      "Ajustes e melhorias de UI",
-    ],
-    links: { github: "", itch: "", video: "" },
+    "PuzzleBlock é um jogo de puzzles onde o jogador resolve desafios baseados em lógica e posicionamento de blocos.",
+
+  workedOn: [
+    "Sistema de puzzles e regras",
+    "Lógica de interação do jogador",
+    "Feedback visual e UX",
+    "Ajustes e balanceamento",
+  ],
+
+  links: {
+    github: "https://github.com/ShadowBoid7/PuzzleBlock",
+  },
     media: [
       { type: "video", src: "media/videos/puzzleblock.mp4" },
     ],
