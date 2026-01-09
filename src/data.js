@@ -13,7 +13,7 @@ export const projects = [
     platform: "PC",
     tech: ["Unity", "C#", "Git"],
     short: "Jogo desenvolvido em Unity.",
-    thumb: "/media/flypidgeyfly.jpg",
+    thumb: "media/flypidgeyfly.jpg",
     whatIs:
       "FlyPidgeyFly é um projeto em Unity onde o objetivo é ... (coloca aqui 1-2 frases).",
     workedOn: [
@@ -21,15 +21,9 @@ export const projects = [
       "UI / HUD",
       "Polish e bug fixing",
     ],
-    links: {
-      github: "", // quando tiveres: "https://github.com/ShadowBoid7/...."
-      itch: "", // quando tiveres: "https://...itch.io/..."
-      video: "", // youtube link opcional
-    },
+    links: { github: "", itch: "", video: "" },
     media: [
-      // Quando tiveres imagens mete assim:
-      // { type: "image", src: "/media/flypidgeyfly-1.jpg", alt: "Screenshot 1" },
-      // { type: "youtube", src: "https://www.youtube.com/embed/VIDEO_ID" },
+      { type: "video", src: "media/videos/flypidgeyfly.mp4" },
     ],
   },
 
@@ -39,7 +33,7 @@ export const projects = [
     platform: "PC",
     tech: ["Unity", "C#", "Git"],
     short: "Puzzle game em Unity.",
-    thumb: "/media/flypidgeyfly.jpg",
+    thumb: "media/puzzleblock.jpg",
     whatIs:
       "PuzzleBlock é um jogo de puzzles onde ... (coloca aqui 1-2 frases).",
     workedOn: [
@@ -47,12 +41,10 @@ export const projects = [
       "Interações e feedback ao jogador",
       "Ajustes e melhorias de UI",
     ],
-    links: {
-      github: "",
-      itch: "",
-      video: "",
-    },
-    media: [],
+    links: { github: "", itch: "", video: "" },
+    media: [
+      { type: "video", src: "media/videos/puzzleblock.mp4" },
+    ],
   },
 
   {
@@ -61,7 +53,7 @@ export const projects = [
     platform: "PC",
     tech: ["Unity", "C#", "Git"],
     short: "Projeto interativo em Unity.",
-    thumb: "/media/flypidgeyfly.jpg",
+    thumb: "media/descobertasinterativas.jpg",
     whatIs:
       "DescobertasInterativas é um projeto interativo onde ... (coloca aqui 1-2 frases).",
     workedOn: [
@@ -69,11 +61,7 @@ export const projects = [
       "UI / navegação",
       "Integração e organização de conteúdo",
     ],
-    links: {
-      github: "",
-      itch: "",
-      video: "",
-    },
+    links: { github: "", itch: "", video: "" },
     media: [],
   },
 ];

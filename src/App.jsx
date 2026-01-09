@@ -11,6 +11,24 @@ function getLinkLabel(url) {
   }
 }
 
+/**
+ * Resolve paths do /public respeitando o BASE_URL do Vite.
+ * Ex: BASE_URL = "/gabriel-portfolio/"
+ * withBase("media/x.jpg") -> "/gabriel-portfolio/media/x.jpg"
+ */
+function withBase(path) {
+  if (!path) return path;
+
+  // Se já for URL completa, não mexe
+  if (/^https?:\/\//i.test(path)) return path;
+
+  const base = import.meta.env.BASE_URL || "/";
+
+  // remove slash inicial do path para evitar // duplicados
+  const cleaned = String(path).replace(/^\/+/, "");
+  return `${base}${cleaned}`.replace(/\/{2,}/g, "/");
+}
+
 function Modal({ open, onClose, project }) {
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && onClose();
@@ -29,7 +47,8 @@ function Modal({ open, onClose, project }) {
       <div className="modal" onMouseDown={(e) => e.stopPropagation()}>
         <div className="modalHeader">
           <div className="modalTitle">
-            {project.title} <span className="modalMeta">| {project.platform}</span>
+            {project.title}{" "}
+            <span className="modalMeta">| {project.platform}</span>
           </div>
           <button className="iconBtn" onClick={onClose} aria-label="Close">
             ✕
@@ -69,7 +88,13 @@ function Modal({ open, onClose, project }) {
             ) : (
               <div className="linkGrid">
                 {links.map(([k, v]) => (
-                  <a key={k} className="linkPill" href={v} target="_blank" rel="noreferrer">
+                  <a
+                    key={k}
+                    className="linkPill"
+                    href={v}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     {k.toUpperCase()} · {getLinkLabel(v)}
                   </a>
                 ))}
@@ -79,17 +104,21 @@ function Modal({ open, onClose, project }) {
 
           <div className="modalSection">
             <h3>Media</h3>
-            {(!project.media || project.media.length === 0) ? (
+
+            {!project.media || project.media.length === 0 ? (
               <div className="mediaPlaceholder">
                 <div className="mediaPlaceholder__box" />
                 <div className="mediaPlaceholder__text">
-                  Sem imagens/vídeos ainda.  
-                  Quando tiveres, eu ajudo-te a pôr aqui com drag & drop (super simples).
+                  Sem imagens/vídeos ainda.
+                  <br />
+                  Quando tiveres, eu ajudo-te a pôr aqui com drag & drop (super
+                  simples).
                 </div>
               </div>
             ) : (
               <div className="mediaGrid">
                 {project.media.map((m, i) => {
+                  // 1) YouTube
                   if (m.type === "youtube") {
                     return (
                       <div className="mediaItem" key={i}>
@@ -104,9 +133,32 @@ function Modal({ open, onClose, project }) {
                       </div>
                     );
                   }
+
+                  // 2) Vídeo MP4 local (public/)
+                  if (m.type === "video") {
+                    return (
+                      <div className="mediaItem projectMedia" key={i}>
+                        <video
+                          className="projectVideo"
+                          controls
+                          playsInline
+                          preload="metadata"
+                        >
+                          <source src={withBase(m.src)} type="video/mp4" />
+                          O teu browser não suporta vídeo MP4.
+                        </video>
+                      </div>
+                    );
+                  }
+
+                  // 3) Imagem (fallback)
                   return (
                     <div className="mediaItem" key={i}>
-                      <img className="mediaImg" src={m.src} alt={m.alt || project.title} />
+                      <img
+                        className="mediaImg"
+                        src={withBase(m.src)}
+                        alt={m.alt || project.title}
+                      />
                     </div>
                   );
                 })}
@@ -116,7 +168,9 @@ function Modal({ open, onClose, project }) {
         </div>
 
         <div className="modalFooter">
-          <button className="btn" onClick={onClose}>Close</button>
+          <button className="btn" onClick={onClose}>
+            Close
+          </button>
         </div>
       </div>
     </div>
@@ -133,7 +187,9 @@ export default function App() {
   );
 
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document
+      .getElementById(id)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   // Scroll spy + fade-in reveal
@@ -245,56 +301,84 @@ export default function App() {
             <div className="cards">
               {projects.map((p) => (
                 <div className="card" key={p.id}>
-  <div className="thumb" onClick={() => setOpenProjectId(p.id)} role="button" tabIndex={0}>
-    {p.thumb ? (
-      <img className="thumbImg" src={p.thumb} alt={`${p.title} thumbnail`} />
-    ) : (
-      <div className="thumbPlaceholder">
-        <div className="thumbPlaceholder__title">{p.title}</div>
-        <div className="thumbPlaceholder__sub">Add screenshot later</div>
-      </div>
-    )}
-  </div>
+                  <div
+                    className="thumb"
+                    onClick={() => setOpenProjectId(p.id)}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    {p.thumb ? (
+                      <img
+                        className="thumbImg"
+                        src={withBase(p.thumb)}
+                        alt={`${p.title} thumbnail`}
+                      />
+                    ) : (
+                      <div className="thumbPlaceholder">
+                        <div className="thumbPlaceholder__title">{p.title}</div>
+                        <div className="thumbPlaceholder__sub">
+                          Add screenshot later
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
-  <div className="cardBody">
-    <div className="cardTop">
-      <div>
-        <h3>{p.title}</h3>
-        <p>{p.short}</p>
-      </div>
+                  <div className="cardBody">
+                    <div className="cardTop">
+                      <div>
+                        <h3>{p.title}</h3>
+                        <p>{p.short}</p>
+                      </div>
 
-      <div className="cardMeta">
-        <div className="mini">{p.platform}</div>
-        <div className="mini">{p.tech.join(" • ")}</div>
-      </div>
-    </div>
+                      <div className="cardMeta">
+                        <div className="mini">{p.platform}</div>
+                        <div className="mini">{p.tech.join(" • ")}</div>
+                      </div>
+                    </div>
 
-    <div className="cardActions">
-      <button className="btn" onClick={() => setOpenProjectId(p.id)}>
-        View project
-      </button>
+                    <div className="cardActions">
+                      <button
+                        className="btn"
+                        onClick={() => setOpenProjectId(p.id)}
+                      >
+                        View project
+                      </button>
 
-      <div className="quickLinks">
-        {p.links?.github ? (
-          <a className="linkSmall" href={p.links.github} target="_blank" rel="noreferrer">
-            GitHub
-          </a>
-        ) : null}
-        {p.links?.itch ? (
-          <a className="linkSmall" href={p.links.itch} target="_blank" rel="noreferrer">
-            Itch
-          </a>
-        ) : null}
-        {p.links?.video ? (
-          <a className="linkSmall" href={p.links.video} target="_blank" rel="noreferrer">
-            Video
-          </a>
-        ) : null}
-      </div>
-    </div>
-  </div>
-</div>
-
+                      <div className="quickLinks">
+                        {p.links?.github ? (
+                          <a
+                            className="linkSmall"
+                            href={p.links.github}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            GitHub
+                          </a>
+                        ) : null}
+                        {p.links?.itch ? (
+                          <a
+                            className="linkSmall"
+                            href={p.links.itch}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Itch
+                          </a>
+                        ) : null}
+                        {p.links?.video ? (
+                          <a
+                            className="linkSmall"
+                            href={p.links.video}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Video
+                          </a>
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -319,7 +403,11 @@ export default function App() {
         </section>
       </main>
 
-      <Modal open={!!openProjectId} onClose={() => setOpenProjectId(null)} project={openProject} />
+      <Modal
+        open={!!openProjectId}
+        onClose={() => setOpenProjectId(null)}
+        project={openProject}
+      />
     </div>
   );
 }
